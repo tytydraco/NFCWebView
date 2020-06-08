@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">NFCWebView</string>
+    <string name="nfc_mime">text/html</string>
 </resources>
