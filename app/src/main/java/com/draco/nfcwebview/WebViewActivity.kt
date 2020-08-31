@@ -14,15 +14,6 @@ class WebViewActivity : AppCompatActivity() {
     private lateinit var nfc: Nfc
     private lateinit var webView: WebView
 
-    /* Upload contents to HTML view */
-    private fun handleNfcScan(intent: Intent) {
-        /* Get tag contents */
-        val bytes = nfc.readBytes(intent)
-
-        /* Get html content passed to this activity */
-        webView.loadDataWithBaseURL(null, String(bytes), "text/html", null, null)
-    }
-
     /* Allow intent following */
     class CustomWebViewClient(private val context: Context) : WebViewClient() {
         /* If we try to navigate to a non-network URL, consider it an intent */
@@ -60,17 +51,11 @@ class WebViewActivity : AppCompatActivity() {
         /* Show web view */
         setContentView(webView)
 
-        /* If we opened the app by scanning a tag, process it */
-        handleNfcScan(intent)
-    }
+        /* Get tag contents */
+        val bytes = nfc.readBytes(intent)
 
-    /* Catch Nfc tag scan in our foreground intent filter */
-    override fun onNewIntent(thisIntent: Intent?) {
-        super.onNewIntent(thisIntent)
-
-        /* Call Nfc tag handler if we are sure this is an Nfc scan */
-        if (thisIntent != null)
-            handleNfcScan(thisIntent)
+        /* Get html content passed to this activity */
+        webView.loadDataWithBaseURL(null, String(bytes), "text/html", null, null)
     }
 
     /* Use back button to operate the web view */
@@ -79,17 +64,5 @@ class WebViewActivity : AppCompatActivity() {
             webView.goBack()
         else
             super.onBackPressed()
-    }
-
-    /* Enable foreground scanning */
-    override fun onResume() {
-        super.onResume()
-        nfc.enableForegroundIntent(this)
-    }
-
-    /* Disable foreground scanning */
-    override fun onPause() {
-        super.onPause()
-        nfc.disableForegroundIntent(this)
     }
 }
