@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.webkit.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.draco.nfcwebview.utils.Nfc
 
 class WebViewActivity : AppCompatActivity() {
     private lateinit var nfc: Nfc

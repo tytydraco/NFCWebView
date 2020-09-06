@@ -1,4 +1,4 @@
-package com.draco.nfcwebview.utils
+package com.draco.nfcwebview
 
 import java.io.ByteArrayOutputStream
 import java.lang.Exception
