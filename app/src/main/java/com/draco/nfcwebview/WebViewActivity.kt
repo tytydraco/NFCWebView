@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.webkit.*
 import androidx.appcompat.app.AppCompatActivity
@@ -17,7 +18,7 @@ class WebViewActivity : AppCompatActivity() {
     class CustomWebViewClient(private val context: Context) : WebViewClient() {
         /* If we try to navigate to a non-network URL, consider it an intent */
         override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
-            if (request != null) {
+            if (request != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 val url = request.url.toString()
                 if (!URLUtil.isNetworkUrl(url)) {
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
